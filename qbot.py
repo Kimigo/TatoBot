@@ -21,9 +21,7 @@ def updater():
     url = "https://raw.githubusercontent.com/Kimigo/TatoBot/main/version.txt"
     req = requests.get(url)
     version2 = req.text
-    if version == version2:
-        pass
-    else:
+    if version != version2:
         url1 = "https://raw.githubusercontent.com/Kimigo/TatoBot/main/qbot.py"
         request = requests.get(url1)
         code = request.text
