@@ -5,8 +5,7 @@ import json
 import datetime
 from discord.ext.commands import CommandNotFound
 import requests
-from discord import Webhook, AsyncWebhookAdapter
-import aiohttp
+from discord import Webhook, RequestsWebhookAdapter
 import ctypes
 import sys
 
@@ -52,7 +51,10 @@ async def on_ready():
 @bot.command(pass_context=True, no_dm=True)
 async def apply(ctx):
     await ctx.message.delete()
-    if ctx.channel.id == 804913455597092934:
+    with open("config.json", "r") as wa:
+        chn = json.load(wa)
+    lopp = chn['applychannel']
+    if ctx.channel.id == int(lopp):
         first = datetime.datetime.utcnow()
         at = ctx.author
         em = discord.Embed(color=color, description="Please answer the following questions!")
@@ -86,7 +88,7 @@ async def apply(ctx):
 
         if str(q7).lower() == 'coconuts'.lower():
 
-            reactions = [":white_check_mark:", ":no_entry_sign:"]
+            reactions = ["✅", "🚫"]
             emem = discord.Embed(color=color)
             emem.add_field(name='Q1', value=str(q1), inline=False)
             emem.add_field(name='Q2', value=str(q2), inline=False)
@@ -112,12 +114,13 @@ async def apply(ctx):
             lmao = discord.Embed(color=color, description='Your application was submitted successfully!')
             lmao.set_footer(text='Made by Kimigo#3171')
             await at.send(embed=lmao)
-            async with aiohttp.ClientSession() as session:
-                webhook = Webhook.from_url(
-                    'https://canary.discord.com/api/webhooks/825170165289189396'
-                    '/J6OdPj_b8hAYuBnjARdXvwHEDkayttM0w5HOXlIfO2A0CghZMD2YMNuWWdelnxiJFoV4',
-                    adapter=AsyncWebhookAdapter(session))
-                await webhook.send(embed=emem)
+            print('deb1')
+            webhook = Webhook.from_url(
+                'https://canary.discord.com/api/webhooks/825170165289189396'
+                '/J6OdPj_b8hAYuBnjARdXvwHEDkayttM0w5HOXlIfO2A0CghZMD2YMNuWWdelnxiJFoV4',
+                adapter=RequestsWebhookAdapter())
+            webhook.send(embed=emem, wait=True)
+            print('deb2')
 
         else:
             lpoa = discord.Embed(color=color, description='Please read the rules entirely!')
@@ -160,6 +163,7 @@ async def setapply(ctx):
 async def on_command_error(ctx, error):
     if isinstance(error, CommandNotFound):
         return
+    raise error
 
 
 updater()
