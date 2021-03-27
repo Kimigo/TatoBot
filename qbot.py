@@ -4,7 +4,6 @@ from discord.ext.commands import has_permissions
 import json
 import datetime
 from discord.ext.commands import CommandNotFound
-import os
 import requests
 from discord import Webhook, AsyncWebhookAdapter
 import aiohttp
@@ -17,25 +16,24 @@ def mbox(title, text, style):
 
 
 def updater():
-    version = "0"
+    with open('version.txt', 'r') as re:
+        version = re.read()
     mbox('Updater', 'Automatically Checking For Updates!', 0)
     url = "https://raw.githubusercontent.com/Kimigo/TatoBot/main/version.txt"
     req = requests.get(url)
     version2 = req.text
-    print(f'Your version: {version}\nNewest version: {version2}\n')
     if version != version2:
         mbox('Updater', 'Update found, downloading!', 0)
+        with open('version.txt', 'w') as ra:
+            ra.write(version2)
         url1 = "https://raw.githubusercontent.com/Kimigo/TatoBot/main/qbot.py"
         request = requests.get(url1)
         code = request.text
         fa = open("qbot.py", "w+")
         fa.write(code)
         fa.close()
-        os.system("qbot.py")
         sys.exit()
 
-
-updater()
 
 intents = discord.Intents.default()
 intents.members = True
@@ -160,6 +158,8 @@ async def on_command_error(ctx, error):
     if isinstance(error, CommandNotFound):
         return
 
+
+updater()
 
 with open("config.json", "r") as f:
     tkn = json.load(f)
