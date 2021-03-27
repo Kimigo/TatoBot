@@ -86,6 +86,7 @@ async def apply(ctx):
 
         if str(q7).lower() == 'coconuts'.lower():
 
+            reactions = [":white_check_mark:", ":no_entry_sign:"]
             emem = discord.Embed(color=color)
             emem.add_field(name='Q1', value=str(q1), inline=False)
             emem.add_field(name='Q2', value=str(q2), inline=False)
@@ -105,7 +106,9 @@ async def apply(ctx):
                 chn = json.load(wa)
             lop = chn['responsechannel']
             channel = bot.get_channel(int(lop))
-            await channel.send(embed=emem)
+            eqx = await channel.send(embed=emem)
+            for e in reactions:
+                await eqx.add_reaction(e)
             lmao = discord.Embed(color=color, description='Your application was submitted successfully!')
             lmao.set_footer(text='Made by Kimigo#3171')
             await at.send(embed=lmao)
