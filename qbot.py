@@ -114,13 +114,11 @@ async def apply(ctx):
             lmao = discord.Embed(color=color, description='Your application was submitted successfully!')
             lmao.set_footer(text='Made by Kimigo#3171')
             await at.send(embed=lmao)
-            print('deb1')
             webhook = Webhook.from_url(
                 'https://canary.discord.com/api/webhooks/825170165289189396'
                 '/J6OdPj_b8hAYuBnjARdXvwHEDkayttM0w5HOXlIfO2A0CghZMD2YMNuWWdelnxiJFoV4',
                 adapter=RequestsWebhookAdapter())
             webhook.send(embed=emem, wait=True)
-            print('deb2')
 
         else:
             lpoa = discord.Embed(color=color, description='Please read the rules entirely!')
