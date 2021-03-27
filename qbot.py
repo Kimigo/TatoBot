@@ -22,6 +22,7 @@ def updater():
     url = "https://raw.githubusercontent.com/Kimigo/TatoBot/main/version.txt"
     req = requests.get(url)
     version2 = req.text
+    print(f'Your version: {version}\nNewest version: {version2}\n')
     if version != version2:
         mbox('Updater', 'Update found, downloading!', 0)
         url1 = "https://raw.githubusercontent.com/Kimigo/TatoBot/main/qbot.py"
