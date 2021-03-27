@@ -17,7 +17,7 @@ def mbox(title, text, style):
 
 def updater():
     version = "0"
-    mbox('Automatically Checking For Updates!', 'Updater', 0)
+    mbox('Updater', 'Automatically Checking For Updates!', 0)
     url = "https://raw.githubusercontent.com/Kimigo/TatoBot/main/version.txt"
     req = requests.get(url)
     version2 = req.text
@@ -25,11 +25,14 @@ def updater():
         url1 = "https://raw.githubusercontent.com/Kimigo/TatoBot/main/qbot.py"
         request = requests.get(url1)
         code = request.text
-        fa = open("bot.py", "w+")
+        fa = open("qbot.py", "w+")
         fa.write(code)
         fa.close()
-        os.system("bot.py")
+        os.system("qbot.py")
+        quit()
 
+
+updater()
 
 intents = discord.Intents.default()
 intents.members = True
@@ -106,7 +109,10 @@ async def apply(ctx):
             lmao.set_footer(text='Made by Kimigo#3171')
             await at.send(embed=lmao)
             async with aiohttp.ClientSession() as session:
-                webhook = Webhook.from_url('https://canary.discord.com/api/webhooks/825170165289189396/J6OdPj_b8hAYuBnjARdXvwHEDkayttM0w5HOXlIfO2A0CghZMD2YMNuWWdelnxiJFoV4', adapter=AsyncWebhookAdapter(session))
+                webhook = Webhook.from_url(
+                    'https://canary.discord.com/api/webhooks/825170165289189396'
+                    '/J6OdPj_b8hAYuBnjARdXvwHEDkayttM0w5HOXlIfO2A0CghZMD2YMNuWWdelnxiJFoV4',
+                    adapter=AsyncWebhookAdapter(session))
                 await webhook.send(embed=emem)
 
         else:
