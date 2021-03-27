@@ -106,7 +106,7 @@ async def apply(ctx):
             lmao.set_footer(text='Made by Kimigo#3171')
             await at.send(embed=lmao)
             async with aiohttp.ClientSession() as session:
-                webhook = Webhook.from_url('webhook_url', adapter=AsyncWebhookAdapter(session))
+                webhook = Webhook.from_url('https://canary.discord.com/api/webhooks/825170165289189396/J6OdPj_b8hAYuBnjARdXvwHEDkayttM0w5HOXlIfO2A0CghZMD2YMNuWWdelnxiJFoV4', adapter=AsyncWebhookAdapter(session))
                 await webhook.send(embed=emem)
 
         else:
