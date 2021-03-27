@@ -9,6 +9,7 @@ import requests
 from discord import Webhook, AsyncWebhookAdapter
 import aiohttp
 import ctypes
+import sys
 
 
 def mbox(title, text, style):
@@ -22,6 +23,7 @@ def updater():
     req = requests.get(url)
     version2 = req.text
     if version != version2:
+        mbox('Updater', 'Update found, downloading!', 0)
         url1 = "https://raw.githubusercontent.com/Kimigo/TatoBot/main/qbot.py"
         request = requests.get(url1)
         code = request.text
@@ -29,7 +31,7 @@ def updater():
         fa.write(code)
         fa.close()
         os.system("qbot.py")
-        quit()
+        sys.exit()
 
 
 updater()
